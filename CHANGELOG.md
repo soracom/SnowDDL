@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added `error_logging` parameter for `TABLE`. It is optional: when it is not set, SnowDDL neither reads nor changes `ERROR_LOGGING` of existing tables, since disabling it drops the error table with all its contents. Changing it on an existing table is an unsafe DDL, same as `change_tracking`. Comparison relies on column `error_logging` of `SHOW TABLES`, available with behavior change bundle `2026_03`.
+
 ## [0.70.1] - 2026-10-24
 
 - Added explicit skip for recovered databases of deleted users (starting with `DROPPED_USER$`).
