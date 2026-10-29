@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-- Added `error_logging` parameter for `TABLE`. It is optional: when it is not set, SnowDDL neither reads nor changes `ERROR_LOGGING` of existing tables, since disabling it drops the error table with all its contents. Changing it on an existing table is an unsafe DDL, same as `change_tracking`. Comparison relies on column `error_logging` of `SHOW TABLES`, available with behavior change bundle `2026_03`.
+- Added `error_logging` parameter for `TABLE`. It is optional: when it is not set, SnowDDL neither reads nor changes `ERROR_LOGGING` of existing tables, since disabling it drops the error table with all its contents. Changing it on an existing table is an unsafe DDL, same as `change_tracking`. Comparison relies on column `error_logging` of `SHOW TABLES`, added by behavior change bundle `2026_03` (generally enabled since Snowflake 10.21, June 2026).
 
 ## [0.70.1] - 2026-10-24
 
