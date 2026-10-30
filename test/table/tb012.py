@@ -1,22 +1,22 @@
 def test_step1(helper):
-    # Explicitly enabled on CREATE TABLE
+    # Enabled on create
     table = helper.show_table("db1", "sc1", "tb012_tb1")
     assert table["error_logging"] == "ON"
 
     table = helper.show_table("db1", "sc1", "tb012_tb2")
     assert table["error_logging"] == "ON"
 
-    # Explicitly disabled on CREATE TABLE
+    # Disabled on create
     table = helper.show_table("db1", "sc1", "tb012_tb3")
     assert table["error_logging"] == "OFF"
 
 
 def test_step2(helper):
-    # Parameter was removed from config, existing value must be preserved
+    # Param removed from config, value is preserved
     table = helper.show_table("db1", "sc1", "tb012_tb1")
     assert table["error_logging"] == "ON"
 
-    # Table was re-created due to NUMBER scale change, error logging must survive REPLACE
+    # Expect REPLACE, error logging is preserved
     table = helper.show_table("db1", "sc1", "tb012_tb2")
     cols = helper.desc_table("db1", "sc1", "tb012_tb2")
 
@@ -28,7 +28,7 @@ def test_step2(helper):
 
 
 def test_step3(helper):
-    # Explicitly disabled
+    # Disabled
     table = helper.show_table("db1", "sc1", "tb012_tb1")
     assert table["error_logging"] == "OFF"
 

@@ -53,7 +53,6 @@ class TableResolver(AbstractSchemaObjectResolver):
                 "cluster_by": r["cluster_by"] if r["cluster_by"] else None,
                 "change_tracking": bool(r["change_tracking"] == "ON"),
                 "search_optimization": bool(r.get("search_optimization") == "ON"),
-                # Column "error_logging" was added by behavior change bundle 2026_03, generally enabled since Snowflake 10.21 (June 2026)
                 "error_logging": bool(r.get("error_logging") == "ON"),
                 "comment": r["comment"] if r["comment"] else None,
             }
@@ -313,8 +312,7 @@ class TableResolver(AbstractSchemaObjectResolver):
                 )
             )
 
-        # Error logging
-        # Only compared when explicitly set in blueprint, since disabling it drops the error table with all its contents
+        # Error logging, only if set explicitly, since disabling it drops the error table
         if bp.error_logging is not None and bp.error_logging != row["error_logging"]:
             unsafe_alters.append(
                 self.engine.format(
